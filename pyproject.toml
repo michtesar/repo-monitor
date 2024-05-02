@@ -27,6 +27,7 @@ dev = [
 ]
 test = [
     "pytest>=8.2.0",
+    "pytest-coverage>=0.0",
 ]
 
 [tool.pdm]
