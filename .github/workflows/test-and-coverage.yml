@@ -32,9 +32,9 @@ jobs:
       - name: Run tests with pytest
         run: |
           pdm install
-          coverage run -m pytest
-          coverage report
-          coverage html
+          pdm run coverage run -m pytest
+          pdm run coverage report
+          pdm run coverage html
 
       - name: Archive code coverage html report
         uses: actions/upload-artifact@v2
