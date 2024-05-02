@@ -9,7 +9,7 @@ class Statistics(BaseModel):
     max: str
     n_events: int
     timestamps: list[str]
-    inter_timestamps_intervals: list[int]
+    duration: list[float]
 
 
 class StatisticsSuccess(BaseModel):

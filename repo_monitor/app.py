@@ -45,10 +45,8 @@ async def post_statistics(
             }
             for e in repo.events
         ]
-    try:
-        statistics = calculate_statistics(data)
-    except Exception as error:
-        return StatisticsFailed(detail="Failed to calculate statistics", message=str(error))
+
+    statistics = calculate_statistics(data)
     if statistics:
         return StatisticsSuccess(results=statistics)
     return StatisticsFailed(
