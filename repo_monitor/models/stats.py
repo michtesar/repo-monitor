@@ -12,7 +12,7 @@ class Statistics(BaseModel):
     first: datetime
     last: datetime
     n_events: int
-    timestamps: list[int]
+    timestamps: list[str]
     inter_timestamps_intervals: list[int]
 
 
