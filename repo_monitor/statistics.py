@@ -1,13 +1,14 @@
 from datetime import datetime
-from typing import Optional, Any
+from typing import Optional, Any, TypeVar
 
 import numpy as np
 
 from repo_monitor.models.stats import Statistics
 
+T = TypeVar("T", int, float)
 
-# TODO: Make this with generics <T>
-def calculate_intervals(array: list[int]) -> list[int]:
+
+def calculate_intervals(array: list[T]) -> list[T]:
     intervals = []
     for i in range(1, len(array)):
         interval = array[i] - array[i - 1]
