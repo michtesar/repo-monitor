@@ -32,7 +32,7 @@ async def post_events(repositories: Repositories) -> Events:
 
 @app.post("/statistics")
 async def post_statistics(
-    repositories: Repositories,
+    repositories: Repositories, event_type: str | None = None
 ) -> StatisticsSuccess | StatisticsFailed:
     repos = [Repository(r) for r in repositories.repositories]
     data = {}
@@ -46,7 +46,7 @@ async def post_statistics(
             for e in repo.events
         ]
 
-    statistics = calculate_statistics(data)
+    statistics = calculate_statistics(data, event_type)
     if statistics:
         return StatisticsSuccess(results=statistics)
     return StatisticsFailed(
