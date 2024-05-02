@@ -1,0 +1,34 @@
+name: Code Quality Checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12'
+
+    - name: Install pre-commit
+      run: |
+        pip install pre-commit
+
+    - name: Install pre-commit hooks
+      run: |
+        pre-commit install --install-hooks
+
+    - name: Run all pre-commit hooks
+      run: |
+        pre-commit run --all-files
