@@ -5,11 +5,25 @@ description = "Default template for PDM package"
 authors = [
     {name = "Michael Tesař", email = "michtesar@gmail.com"},
 ]
-dependencies = []
+dependencies = [
+    "fastapi>=0.110.3",
+    "uvicorn>=0.29.0",
+]
 requires-python = "==3.12.*"
 readme = "README.md"
 license = {text = "MIT"}
 
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit>=3.7.0",
+    "ruff>=0.4.2",
+    "mypy>=1.10.0",
+    "codespell>=2.2.6",
+]
+test = [
+    "pytest>=8.2.0",
+]
 
 [tool.pdm]
 distribution = false
