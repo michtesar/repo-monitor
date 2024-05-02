@@ -6,12 +6,18 @@ import numpy as np
 from repo_monitor.models.stats import Statistics
 
 
+def _to_iso(date: str) -> datetime:
+    return datetime.fromisoformat(date)
+
+
+def _parse_datetime(date: str) -> datetime:
+    return datetime.strptime(date, "%Y-%m-%dT%H:%M:%SZ")
+
+
 def calculate_duration(timestamp_iso: list[str]) -> list[float]:
     duration = []
     for i in range(len(timestamp_iso) - 1):
-        diff = datetime.fromisoformat(timestamp_iso[i + 1]) - datetime.fromisoformat(
-            timestamp_iso[i]
-        )
+        diff = _to_iso(timestamp_iso[i + 1]) - _to_iso(timestamp_iso[i])
         duration.append(float(diff.total_seconds()))
     return duration
 
@@ -26,10 +32,7 @@ def calculate_statistics(
             filtered_events = [event for event in events if event["type"] == event_type]
 
         if filtered_events:
-            timestamps = [
-                datetime.strptime(event["created_at"], "%Y-%m-%dT%H:%M:%SZ")
-                for event in filtered_events
-            ]
+            timestamps = [_parse_datetime(event["created_at"]) for event in filtered_events]
             timestamps_iso = sorted([timestamp.isoformat() for timestamp in timestamps])
             duration = calculate_duration(timestamps_iso)
 
