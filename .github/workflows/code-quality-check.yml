@@ -21,14 +21,22 @@ jobs:
       with:
         python-version: '3.12'
 
-    - name: Install pre-commit
+    - name: Install pdm
       run: |
-        pip install pre-commit
+        pip install pdm
 
-    - name: Install pre-commit hooks
+    - name: Install dev dependencies
       run: |
-        pre-commit install --install-hooks
+        pdm install group:dev
 
-    - name: Run all pre-commit hooks
+    - name: Run code linting
       run: |
-        pre-commit run --all-files
+        make lint
+
+    - name: Run code format
+      run: |
+        make format
+
+    - name: Run type check
+      run: |
+        make typecheck
