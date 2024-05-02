@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from pydantic import BaseModel
 
 
@@ -7,10 +5,8 @@ class Statistics(BaseModel):
     repository: str
     average: float
     std: float
-    min: float
-    max: float
-    first: datetime
-    last: datetime
+    min: str
+    max: str
     n_events: int
     timestamps: list[str]
     inter_timestamps_intervals: list[int]
