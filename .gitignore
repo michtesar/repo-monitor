@@ -163,3 +163,4 @@ cython_debug/
 
 # Requests cache database
 repo_monitor/events.sqlite
+/events.sqlite
