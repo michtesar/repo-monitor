@@ -159,9 +159,15 @@ Or you can use `uvicorn` to run the application they way you want (e.g., set the
 uvicorn repo_monitor.main:app --port 5000
 ```
 
+Then, navigate to:
+
+- http://127.0.0.1:5000/docs
+
 ### Production
 
-In production, a Docker container is highly recommended. Please, find included `Dockerfile` in the
+In production, a Docker container is highly recommended.
+
+Please find included `Dockerfile` in the
 repository, or use `Makefile` targets:
 
 1. `make docker/build` - Build a Docker image with the name of `repo-monitor`
@@ -169,9 +175,9 @@ repository, or use `Makefile` targets:
 
 In case of Docker a port `5000` is being used and exposed, so please navigate to:
 
-- http://127.0.0.1:5000
+- http://127.0.0.1:5000/docs
 or
-- http://localhost:5000
+- http://localhost:5000/docs
 
 
 ## Used libraries
