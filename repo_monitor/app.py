@@ -1,14 +1,14 @@
 from fastapi import FastAPI
-
+from repo_monitor.config import settings
 from repo_monitor.models.repos import Repositories
 from repo_monitor.repository import Repository
 
 app = FastAPI()
 
 
-@app.get("/")
-async def root() -> dict[str, str]:
-    return {"message": "Hello World"}
+@app.get("/config")
+async def get_config() -> dict[str, dict]:
+    return {"results": settings.dict()}
 
 
 @app.post("/events")
