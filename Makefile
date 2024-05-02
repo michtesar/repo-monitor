@@ -52,7 +52,7 @@ clean:
 
 .PHONY: run  ## Run the application
 run:
-	pdm run uvicorn repo_monitor.main:app
+	pdm run uvicorn repo_monitor.app:app
 
 .PHONY: dependencies  ## Export all prod dependencies to requirements.txt
 dependencies:
