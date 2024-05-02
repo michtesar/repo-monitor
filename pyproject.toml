@@ -27,3 +27,44 @@ test = [
 
 [tool.pdm]
 distribution = false
+
+[tool.ruff]
+line-length = 99
+target-version = "py312"
+exclude = [
+    "build",
+    "__pycache__",
+    ".git",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache"
+]
+fix = true
+ignore = ["G004", "PGH003", "B008"]
+select = [
+    "E",    # pycodestyle
+    "F",    # Pyflakes
+    "W",    # Warning
+    "B",    # flake8-bugbear
+    "A",    # flake8-builtins
+    "C4",   # flake8-comprehensions
+    "T10",  # flake8-debugger
+    "EXE",  # flake8-executable,
+    "ISC",  # flake8-implicit-str-concat
+    "G",    # flake8-logging-format
+    "PIE",  # flake8-pie
+    "T20",  # flake8-print
+    "PT",   # flake8-pytest-style
+    "RSE",  # flake8-raise
+    "RET",  # flake8-return
+    "TID",  # flake8-tidy-imports
+    "ARG",  # flake8-unused-arguments
+    "PGH",  # pygrep-hooks
+    "PLC",  # Pylint Convention
+    "PLE",  # Pylint Errors
+    "PLW",  # Pylint Warnings
+    "RUF",  # Ruff-specific rules
+]
+
+[tool.ruff.mccabe]
+max-complexity = 10
