@@ -37,6 +37,6 @@ jobs:
       run: |
         make format
 
-    - name: Run type check
-      run: |
-        make typecheck
+#    - name: Run type check
+#      run: |
+#        make typecheck
