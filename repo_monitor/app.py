@@ -82,7 +82,10 @@ async def post_statistics(
     """
     Calculate the statistics for all (or filtered) events from all requested repositories
     """
+    # Create repository objects from included strings
     repos = [Repository(r) for r in repositories.repositories]
+
+    # Collect all events, ids and timestamps
     data = {}
     for repo in repos:
         data[repo.url] = [
@@ -94,6 +97,7 @@ async def post_statistics(
             for e in repo.events
         ]
 
+    # Calculate statistics
     statistics = calculate_statistics(data, event_type)
     if statistics:
         return StatisticsSuccess(results=statistics)
