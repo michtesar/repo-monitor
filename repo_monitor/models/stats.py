@@ -14,3 +14,14 @@ class Statistics(BaseModel):
     n_events: int
     timestamps: list[int]
     inter_timestamps_intervals: list[int]
+
+
+class StatisticsSuccess(BaseModel):
+    successful: bool = True
+    results: Statistics
+
+
+class StatisticsFailed(BaseModel):
+    successful: bool = False
+    detail: str
+    message: str
