@@ -12,7 +12,7 @@ async def get_config() -> dict[str, dict]:
 
 
 @app.post("/events")
-async def get_events(repositories: Repositories) -> dict:
+async def post_events(repositories: Repositories) -> dict:
     repos = [Repository(r) for r in repositories.repositories]
     result = {}
     for repo in repos:
