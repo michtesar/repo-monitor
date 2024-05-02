@@ -32,25 +32,16 @@ def calculate_statistics(
             ]
             timestamps_seconds = [int(timestamp.timestamp()) for timestamp in timestamps]
 
-            inter_timestamps_intervals = calculate_intervals(timestamps_seconds)
-
-            average_sec = np.mean(timestamps_seconds)
-            std_sec = np.std(timestamps_seconds)
-            min_timestamp = np.min(timestamps_seconds)
-            max_timestamp = np.max(timestamps_seconds)
-            first_timestamp = min(timestamps)
-            last_timestamp = max(timestamps)
-
             return Statistics(
                 repository=url,
-                average=average_sec,
-                std=std_sec,
-                min=min_timestamp,
-                max=max_timestamp,
-                first=first_timestamp,
-                last=last_timestamp,
+                average=np.mean(timestamps_seconds),
+                std=np.std(timestamps_seconds),
+                min=np.min(timestamps_seconds),
+                max=np.max(timestamps_seconds),
+                first=min(timestamps),
+                last=max(timestamps),
                 n_events=len(filtered_events),
                 timestamps=timestamps_seconds,
-                inter_timestamps_intervals=inter_timestamps_intervals,
+                inter_timestamps_intervals=calculate_intervals(timestamps_seconds),
             )
     return None
