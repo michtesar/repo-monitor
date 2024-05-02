@@ -27,7 +27,7 @@ jobs:
 
     - name: Install dev dependencies
       run: |
-        pdm install group:dev
+        pdm install --group: dev
 
     - name: Run code linting
       run: |
