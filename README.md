@@ -1,2 +1,2 @@
 # repo-monitor
-Datamole test assignment implementation of a API that monitors Github repositories
+Datamole test assignment implementation of an API that monitors GitHub repositories
