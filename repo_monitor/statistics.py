@@ -6,10 +6,12 @@ import numpy as np
 from repo_monitor.models.stats import Statistics
 
 
-def calculate_duration(array: list[str]) -> list[float]:
+def calculate_duration(timestamp_iso: list[str]) -> list[float]:
     duration = []
-    for i in range(len(array) - 1):
-        diff = datetime.fromisoformat(array[i + 1]) - datetime.fromisoformat(array[i])
+    for i in range(len(timestamp_iso) - 1):
+        diff = datetime.fromisoformat(timestamp_iso[i + 1]) - datetime.fromisoformat(
+            timestamp_iso[i]
+        )
         duration.append(float(diff.total_seconds()))
     return duration
 
