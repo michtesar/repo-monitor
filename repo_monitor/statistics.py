@@ -30,7 +30,8 @@ def calculate_statistics(
                 datetime.strptime(event["created_at"], "%Y-%m-%dT%H:%M:%SZ")
                 for event in filtered_events
             ]
-            timestamps_seconds = [int(timestamp.timestamp()) for timestamp in timestamps]
+            timestamps_seconds = sorted([int(timestamp.timestamp()) for timestamp in timestamps])
+            timestamps_iso = sorted([timestamp.isoformat() for timestamp in timestamps])
 
             return Statistics(
                 repository=url,
@@ -41,7 +42,7 @@ def calculate_statistics(
                 first=min(timestamps),
                 last=max(timestamps),
                 n_events=len(filtered_events),
-                timestamps=timestamps_seconds,
+                timestamps=timestamps_iso,
                 inter_timestamps_intervals=calculate_intervals(timestamps_seconds),
             )
     return None
