@@ -32,6 +32,7 @@ jobs:
       - name: Run tests with pytest
         run: |
           make test
+          pip install coverage
           coverage report
           coverage html
 
