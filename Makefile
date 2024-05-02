@@ -56,7 +56,7 @@ run:
 
 .PHONY: dependencies  ## Export all prod dependencies to requirements.txt
 dependencies:
-	pdb export --production -o requirements.txt
+	pdm export --production -o requirements.txt
 
 .PHONY: all
 all: clean install format test run
