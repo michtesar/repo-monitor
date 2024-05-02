@@ -5,5 +5,7 @@ def validate_github_url(url: str) -> None:
     :param url: Url to validate
     :return: None
     """
+    if not url or "https://" not in url:
+        raise ValueError("Please, provide a valid url, such as https://...")
     if "github.com/" not in url:
         raise ValueError("Not supported VSC url, please add a GitHub url")
