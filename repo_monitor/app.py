@@ -5,8 +5,8 @@ from repo_monitor.models.events import Events
 from repo_monitor.models.health import Health
 from repo_monitor.models.repos import Repositories
 from repo_monitor.models.stats import StatisticsSuccess, StatisticsFailed
-from repo_monitor.repository import Repository
-from repo_monitor.statistics import calculate_statistics
+from repo_monitor.lib.repository import Repository
+from repo_monitor.lib.statistics import calculate_statistics
 
 description = """
 ## RepoMonitor 🚀
