@@ -25,18 +25,10 @@ jobs:
         run: |
           pip install pdm
 
-      - name: Install coverage
-        run: |
-          pip install coverage pytest pytest-coverage
-
       - name: Install dependencies
         run: |
           pdm install --group :dev
 
-      - name: Test with pytest
+      - name: Run tests with pytest
         run: |
-          coverage run -m pytest  -v -s tests
-
-      - name: Generate Coverage Report
-        run: |
-          coverage report -m
+          make test
