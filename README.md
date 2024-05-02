@@ -15,7 +15,7 @@ Have a look in the Swagger documentation for more details on the endpoints.
 
 ### Statistics
 
-To report statistics one can set up which repositories and if to filter by a specific event.
+To report statistics, one can set up which repositories and if to filter by a specific event.
 
 To get a notion what it is like, you can run this in the terminal:
 
@@ -97,12 +97,12 @@ This is an example response for this repository:
 ```
 ### Repositories
 
-In order to specify the repositories, please only put the GitHub links to a public
+To specify the repositories, please only put the GitHub links to a public
 ones in their common form (not the API one), such as:
 
 https://github.com/michtesar/repo-monitor
 
-There is validation check on the URL itself and on the number of the repositories as well.
+There is a validation check on the URL itself and on the number of the repositories as well.
 
 The max number of repositories could be changed in the `config.py`.
 
@@ -112,7 +112,7 @@ A FastAPI is being used as a backend for the application. If this was a producti
 application, we would consider implementing routers to enables `v1/api` or `v2/api` style
 routes.
 
-So far the application is opened on the empty (non-existing route - root /) - later we would
+So far, the application is opened on the empty (non-existing route - root /)—later we would
 want to implement some frontend or router dict for specified API versions.
 
 To query the GitHub API a `requests-cached` library is being used to cache the request
@@ -137,7 +137,7 @@ Then, install all production dependencies with:
 pip install -r requirements.txt
 ```
 
-For running the application, please utilize the `Makefile` targets. To see all
+For running the application, please use the `Makefile` targets. To see all
 the options for development and run, run: `make help`. If you just run `make`
 everything is going to be set for you automatically:
 1. Clean the repository
@@ -176,7 +176,7 @@ or
 
 ## Used libraries
 
-In order to visualize all the used libraries and their dependencies, please
+To visualize all the used libraries and their dependencies, please
 find this table generated with `pip-licenses`:
 
 | Name               | Version  | License                              |
@@ -207,7 +207,7 @@ find this table generated with `pip-licenses`:
 | urllib3            | 2.2.1    | MIT License                          |
 | uvicorn            | 0.29.0   | BSD License                          |
 
-As it can be seen only free and open-source libraries were used.
+As it can be seen, only free and open-source libraries were used.
 
 ### Security
 
