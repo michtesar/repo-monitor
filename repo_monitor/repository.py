@@ -33,7 +33,7 @@ class Repository:
 
     # TODO: Implement better return model
     @property
-    def events(self) -> dict[str, Any]:
+    def events(self) -> list[dict[str, Any]]:
         """
         Lazy access to the repo events (cached)
         :return: List of events
