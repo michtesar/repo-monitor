@@ -1,6 +1,7 @@
 .DEFAULT_GOAL := all
 
 source = repo_monitor/ tests/
+docker_name = repo-monitor
 
 .PHONY: .pdm
 .pdm:
@@ -19,6 +20,11 @@ install: .pdm .pre-commit
 	pdm info
 	pdm install --group :all
 	pdm run pre-commit install --install-hooks
+
+.PHONY: format  # Format the Python source files
+format:
+	pdm run ruff check $(sources)
+	pdm run ruff format --check $(sources)
 
 .PHONY: lint  ## Lint Python source files
 lint: .pdm
@@ -52,11 +58,23 @@ clean:
 
 .PHONY: run  ## Run the application
 run:
-	pdm run uvicorn repo_monitor.app:app
+	pdm run uvicorn repo_monitor.main:app
 
 .PHONY: dependencies  ## Export all prod dependencies to requirements.txt
 dependencies:
 	pdm export --production -o requirements.txt
+
+.PHONY: docker/build  ## Build a docker image
+docker/build:
+	docker build -t $(docker_name) .
+
+
+.PHONY: docker/run  ## Run a docker container
+docker/run:
+	docker run -p 5000:5000 $(docker_name)
+
+.PHONY: docker  ## Build and run Docker target
+docker: docker/build docker/run
 
 .PHONY: all
 all: clean install format test run
