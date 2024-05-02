@@ -1,9 +1,9 @@
 from typing import Any
 
 from requests_cache import CachedSession
-from config import settings
+from repo_monitor.config import settings
 
-from utils import validate_github_url
+from repo_monitor.utils import validate_github_url
 
 
 class Repository:
