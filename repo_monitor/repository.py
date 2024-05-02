@@ -31,9 +31,8 @@ class Repository:
     def url(self) -> str:
         return self._url
 
-    # TODO: Implement better return model
     @property
-    def events(self) -> list[dict[str, Any]]:
+    def events(self) -> list[dict[str, Any]]:  # TODO: Implement actual response schema
         """
         Lazy access to the repo events (cached)
         :return: List of events
