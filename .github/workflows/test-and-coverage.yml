@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pdm install --group :test
+          pdm install --group test
 
       - name: Run tests with pytest
         run: |
