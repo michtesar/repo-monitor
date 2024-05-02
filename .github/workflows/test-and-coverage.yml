@@ -27,11 +27,11 @@ jobs:
 
       - name: Install coverage
         run: |
-          pip install coverage
+          pip install coverage pytest pytest-coverage
 
       - name: Install dependencies
         run: |
-          pdm install --group :all
+          pdm install --group :dev
 
       - name: Test with pytest
         run: |
