@@ -27,6 +27,10 @@ class Repository:
         *_, owner, repo = self._url.split("/")
         return f"https://api.github.com/repos/{owner}/{repo}/events"
 
+    @property
+    def url(self) -> str:
+        return self._url
+
     # TODO: Implement better return model
     @property
     def events(self) -> dict[str, Any]:
