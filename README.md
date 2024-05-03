@@ -5,7 +5,6 @@ Datamole test assignment implementation of an API that monitors GitHub repositor
 
 1. http://127.0.0.1:8000/docs - Swagger documentation
 2. http://127.0.0.1:8000/health - Use this endpoint to check the health of the application
-3. http://127.0.0.1:8000/events - List of all events for the particular repositories (cached)
 4. http://127.0.0.1:8000/statistics - Provide basic statistics for the repositories passed in the
 JSON body with `repositories` key as a list of strings.
 
@@ -15,7 +14,7 @@ Have a look in the Swagger documentation for more details on the endpoints.
 
 ### Statistics
 
-To report statistics, one can set up which repositories and if to filter by a specific event.
+To report statistics, one can set up which repositories.
 
 To get a notion what it is like, you can run this in the terminal:
 
@@ -26,75 +25,14 @@ curl -X 'POST' \
   -H 'Content-Type: application/json' \
   -d '{
   "repositories": [
-    "https://github.com/michtesar/repo-monitor"
+    "https://github.com/psf/requests",
+    "https://github.com/tiangolo/fastapi",
+    "https://github.com/astral-sh/ruff",
+    "https://github.com/pre-commit/pre-commit"
   ]
 }'
 ```
 
-This is an example response for this repository:
-
-```bash
-{
-  "successful": true,
-  "results": {
-    "repository": "https://github.com/michtesar/repo-monitor",
-    "average": 860.7727272727273,
-    "std": 1061.2603541337999,
-    "min": "2024-05-02T07:37:34",
-    "max": "2024-05-02T12:53:11",
-    "n_events": 23,
-    "timestamps": [
-      "2024-05-02T07:37:34",
-      "2024-05-02T07:37:34",
-      "2024-05-02T07:37:34",
-      "2024-05-02T07:41:11",
-      "2024-05-02T08:07:40",
-      "2024-05-02T08:09:15",
-      "2024-05-02T08:12:58",
-      "2024-05-02T08:13:29",
-      "2024-05-02T08:19:11",
-      "2024-05-02T08:55:50",
-      "2024-05-02T09:13:32",
-      "2024-05-02T09:18:26",
-      "2024-05-02T09:18:53",
-      "2024-05-02T09:32:59",
-      "2024-05-02T10:46:48",
-      "2024-05-02T10:51:54",
-      "2024-05-02T11:19:49",
-      "2024-05-02T11:26:27",
-      "2024-05-02T11:51:56",
-      "2024-05-02T11:52:54",
-      "2024-05-02T11:53:47",
-      "2024-05-02T12:28:41",
-      "2024-05-02T12:53:11"
-    ],
-    "duration": [
-      0,
-      0,
-      217,
-      1589,
-      95,
-      223,
-      31,
-      342,
-      2199,
-      1062,
-      294,
-      27,
-      846,
-      4429,
-      306,
-      1675,
-      398,
-      1529,
-      58,
-      53,
-      2094,
-      1470
-    ]
-  }
-}
-```
 ### Repositories
 
 To specify the repositories, please only put the GitHub links to a public
@@ -197,7 +135,6 @@ find this table generated with `pip-licenses`:
 | fastapi            | 0.110.3  | MIT License                          |
 | h11                | 0.14.0   | MIT License                          |
 | idna               | 3.7      | BSD License                          |
-| numpy              | 1.26.4   | BSD License                          |
 | platformdirs       | 4.2.1    | MIT License                          |
 | pydantic           | 2.7.1    | MIT License                          |
 | pydantic-settings  | 2.2.1    | MIT License                          |
