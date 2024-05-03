@@ -1,12 +1,17 @@
 from fastapi import FastAPI
+from requests_cache import CachedSession
+
 from repo_monitor.config import settings
+from repo_monitor.lib.controller import (
+    get_statistics_by_event_type,
+    create_api_url,
+)
 from repo_monitor.models.config import Config
 from repo_monitor.models.events import Events
 from repo_monitor.models.health import Health
 from repo_monitor.models.repos import Repositories
-from repo_monitor.models.stats import StatisticsSuccess, StatisticsFailed
 from repo_monitor.lib.repository import Repository
-from repo_monitor.lib.statistics import calculate_statistics
+from repo_monitor.models.stats import StatisticsSuccess
 
 description = """
 ## RepoMonitor 🚀
@@ -77,31 +82,15 @@ async def post_events(repositories: Repositories) -> Events:
 
 @app.post("/statistics", tags=["Processing"], name="Statistics")
 async def post_statistics(
-    repositories: Repositories, event_type: str | None = None
-) -> StatisticsSuccess | StatisticsFailed:
+    repositories: Repositories,
+) -> StatisticsSuccess:
     """
     Calculate the statistics for all (or filtered) events from all requested repositories
     """
-    # Create repository objects from included strings
-    repos = [Repository(r) for r in repositories.repositories]
-
-    # Collect all events, ids and timestamps
-    data = {}
-    for repo in repos:
-        data[repo.url] = [
-            {
-                "type": e.get("type"),
-                "created_at": e.get("created_at"),
-                "id": e.get("id"),
-            }
-            for e in repo.events
-        ]
-
-    # Calculate statistics
-    statistics = calculate_statistics(data, event_type)
-    if statistics:
-        return StatisticsSuccess(results=statistics)
-    return StatisticsFailed(
-        detail=f"Cannot calculate statistics for {[r.url for r in repos]}",
-        message="Unknown error",
-    )
+    results = []
+    for repo_url in repositories.repositories:
+        api_url = create_api_url(repo_url)
+        session = CachedSession("events", "sqlite", expire_after=60 * 10)
+        stats = get_statistics_by_event_type(api_url, session)
+        results.append(stats)
+    return StatisticsSuccess(results=results)
