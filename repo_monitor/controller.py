@@ -5,12 +5,19 @@ from requests_cache import CachedSession
 
 
 def to_datetime(date_str: str) -> datetime:
+    """Converts a date string to a datetime object."""
     return datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%SZ")
 
 
 def get_github_events(
     url: Optional[str], session: CachedSession
 ) -> list[dict[str, datetime | Any]]:
+    """
+    Fetches GitHub events from GitHub API and sort them by timestamp.
+    :param url: GitHub API url
+    :param session: CachedSession instance
+    :return: List of sorted GitHub events
+    """
     events = []
 
     while url:
@@ -42,6 +49,11 @@ def get_github_events(
 
 
 def slice_by_weeks(events: list[dict]) -> list[list[dict]]:
+    """
+    Slice GitHub events by week numbers
+    :param events: List of GitHub events
+    :return: Slices of GitHub events by weeks
+    """
     week_number = events[0]["created_at"].isocalendar()[1]
     chunks: list[list[dict[str, str | datetime]]] = []
     chunk: list[dict[str, str | datetime]] = []
@@ -56,6 +68,13 @@ def slice_by_weeks(events: list[dict]) -> list[list[dict]]:
 
 
 def create_sliding_window(events: list[dict], n: int = 500) -> list[list[dict]]:
+    """
+    Create chunks of GitHub events by week numbers or
+    by exact number of events.
+    :param events: List of GitHub events
+    :param n: Number of chunks to create (default 500)
+    :return:  Slices of GitHub events by week numbers or number of events
+    """
     if len(events) > n:
         chunks = [events[i : i + n] for i in range(0, len(events), n)]
     else:
@@ -64,6 +83,12 @@ def create_sliding_window(events: list[dict], n: int = 500) -> list[list[dict]]:
 
 
 def calculate_statistics(data: list[dict]) -> dict[str, float]:
+    """
+    Calculates inter-timestamp duration statistics
+    aggregated by event type.
+    :param data: GitHub event lists (slices)
+    :return: Statistics dictionary by event type
+    """
     time_diffs: dict[Any, list[float]] = {}
     average_time_diffs = {}
     for i in range(1, len(data)):
@@ -83,6 +108,12 @@ def calculate_statistics(data: list[dict]) -> dict[str, float]:
 
 
 def get_statistics_by_event_type(api_url: str, session: CachedSession) -> dict[str, list]:
+    """
+    Controller function for getting statistics by event type.
+    :param api_url: GitHub API url
+    :param session: CachedSession instance
+    :return: Statistics dictionary by event type
+    """
     events = get_github_events(api_url, session)
     chunks = create_sliding_window(events)
     results: dict[str, list] = {api_url: []}
