@@ -19,7 +19,8 @@ Minimal API tool for monitoring GitHub statistics on repository events
 
 Application allows user to:
 1. View the GitHub repo events
-2. Calculate statistics on all events or on filtered event
+2. Calculate statistics on all events with sliding window
+(500 events or 7 days - whatever comes smaller)
 
 User can provide up to 5 GitHub repositories in the `repositories` key
 of the JSON body alongside with the request.
@@ -62,7 +63,7 @@ async def post_statistics(
     repositories: Repositories,
 ) -> StatisticsSuccess:
     """
-    Calculate the statistics for all (or filtered) events from all requested repositories
+    Calculate the statistics for all events from all requested repositories
     """
     results = []
     for repo_url in repositories.repositories:
