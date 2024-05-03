@@ -2,15 +2,12 @@ from fastapi import FastAPI
 from requests_cache import CachedSession
 
 from repo_monitor.config import settings
-from repo_monitor.lib.controller import (
+from repo_monitor.controller import (
     get_statistics_by_event_type,
     create_api_url,
 )
-from repo_monitor.models.config import Config
-from repo_monitor.models.events import Events
 from repo_monitor.models.health import Health
 from repo_monitor.models.repos import Repositories
-from repo_monitor.lib.repository import Repository
 from repo_monitor.models.stats import StatisticsSuccess
 
 description = """
@@ -52,32 +49,12 @@ app = FastAPI(
 )
 
 
-@app.get("/config", tags=["Monitoring"], name="App Configuration")
-async def get_config() -> Config:
-    """
-    Show the current application configuration.
-    """
-    return Config(successful=True, results=settings)
-
-
 @app.get("/health", tags=["Monitoring"], name="App Heath")
 async def get_health() -> Health:
     """
     Endpoint that can be used for monitor the health of the application.
     """
     return Health(status=200, ready="OK")
-
-
-@app.post("/events", tags=["Processing"], name="Events")
-async def post_events(repositories: Repositories) -> Events:
-    """
-    Fetch the events from all requested repositories
-    """
-    repos = [Repository(r) for r in repositories.repositories]
-    results = {}
-    for repo in repos:
-        results[repo.url] = repo.events
-    return Events(successful=True, results=results, n_repos=len(results))
 
 
 @app.post("/statistics", tags=["Processing"], name="Statistics")
@@ -90,7 +67,7 @@ async def post_statistics(
     results = []
     for repo_url in repositories.repositories:
         api_url = create_api_url(repo_url)
-        session = CachedSession("events", "sqlite", expire_after=60 * 10)
+        session = CachedSession("events", "sqlite", expire_after=settings.cache_expiration_sec)
         stats = get_statistics_by_event_type(api_url, session)
         results.append(stats)
     return StatisticsSuccess(results=results)
