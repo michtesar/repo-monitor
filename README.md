@@ -5,7 +5,7 @@ Datamole test assignment implementation of an API that monitors GitHub repositor
 
 1. http://127.0.0.1:8000/docs - Swagger documentation
 2. http://127.0.0.1:8000/health - Use this endpoint to check the health of the application
-4. http://127.0.0.1:8000/statistics - Provide basic statistics for the repositories passed in the
+3. http://127.0.0.1:8000/statistics - Provide basic statistics for the repositories passed in the
 JSON body with `repositories` key as a list of strings.
 
 Have a look in the Swagger documentation for more details on the endpoints.
